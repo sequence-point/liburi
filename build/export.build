@@ -1,0 +1,6 @@
+$out_root/
+{
+  include liburi/
+}
+
+export $out_root/liburi/$import.target
