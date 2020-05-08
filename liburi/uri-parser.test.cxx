@@ -40,9 +40,9 @@ DEFINE_TEST("<http:///index.html>")
   TEST_EQUAL(uri.path_str(), "/index.html");
 }
 
-DEFINE_TEST("<http://localhost/index.html>")
+DEFINE_TEST("<http://host.domain./index.html>")
 {
-  auto opt_uri = uri::uri::try_parse("http://localhost/index.html");
+  auto opt_uri = uri::uri::try_parse("http://host.domain./index.html");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -56,13 +56,13 @@ DEFINE_TEST("<http://localhost/index.html>")
   TEST_FALSE((bool)uri.fragment());
 
   TEST_EQUAL(uri.scheme_str(), "http");
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.path_str(), "/index.html");
 }
 
-DEFINE_TEST("<https://localhost:8443/index.html>")
+DEFINE_TEST("<https://host.domain.:8443/index.html>")
 {
-  auto opt_uri = uri::uri::try_parse("https://localhost:8443/index.html");
+  auto opt_uri = uri::uri::try_parse("https://host.domain.:8443/index.html");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -76,15 +76,15 @@ DEFINE_TEST("<https://localhost:8443/index.html>")
   TEST_FALSE((bool)uri.fragment());
 
   TEST_EQUAL(uri.scheme_str(), "https");
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.port_str(), "8443");
   TEST_EQUAL(uri.path_str(), "/index.html");
 }
 
-DEFINE_TEST("<https://localhost:8443/search?q=hamsters>")
+DEFINE_TEST("<https://host.domain.:8443/search?q=hamsters>")
 {
   auto opt_uri =
-    uri::uri::try_parse("https://localhost:8443/search?q=hamsters");
+    uri::uri::try_parse("https://host.domain.:8443/search?q=hamsters");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -98,16 +98,16 @@ DEFINE_TEST("<https://localhost:8443/search?q=hamsters>")
   TEST_FALSE((bool)uri.fragment());
 
   TEST_EQUAL(uri.scheme_str(), "https");
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.port_str(), "8443");
   TEST_EQUAL(uri.path_str(), "/search");
   TEST_EQUAL(uri.query_str(), "q=hamsters");
 }
 
-DEFINE_TEST("<https://localhost:8443/search?q=hamsters#results>")
+DEFINE_TEST("<https://host.domain.:8443/search?q=hamsters#results>")
 {
   auto opt_uri =
-    uri::uri::try_parse("https://localhost:8443/search?q=hamsters#results");
+    uri::uri::try_parse("https://host.domain.:8443/search?q=hamsters#results");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -121,17 +121,17 @@ DEFINE_TEST("<https://localhost:8443/search?q=hamsters#results>")
   TEST_TRUE((bool)uri.fragment());
 
   TEST_EQUAL(uri.scheme_str(), "https");
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.port_str(), "8443");
   TEST_EQUAL(uri.path_str(), "/search");
   TEST_EQUAL(uri.query_str(), "q=hamsters");
   TEST_EQUAL(uri.fragment_str(), "results");
 }
 
-DEFINE_TEST("<https://admin:qwerty@localhost:8443/search?q=hamsters#results>")
+DEFINE_TEST("<https://admin:qwerty@host.domain.:8443/search?q=hamsters#results>")
 {
   auto opt_uri = uri::uri::try_parse(
-    "https://admin:qwerty@localhost:8443/search?q=hamsters#results");
+    "https://admin:qwerty@host.domain.:8443/search?q=hamsters#results");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -146,16 +146,16 @@ DEFINE_TEST("<https://admin:qwerty@localhost:8443/search?q=hamsters#results>")
 
   TEST_EQUAL(uri.scheme_str(), "https");
   TEST_EQUAL(uri.userinfo_str(), "admin:qwerty");
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.port_str(), "8443");
   TEST_EQUAL(uri.path_str(), "/search");
   TEST_EQUAL(uri.query_str(), "q=hamsters");
   TEST_EQUAL(uri.fragment_str(), "results");
 }
 
-DEFINE_TEST("<//localhost/index.html>")
+DEFINE_TEST("<//host.domain./index.html>")
 {
-  auto opt_uri = uri::try_parse_uri("//localhost/index.html");
+  auto opt_uri = uri::try_parse_uri("//host.domain./index.html");
 
   TEST_TRUE((bool)opt_uri);
 
@@ -168,7 +168,7 @@ DEFINE_TEST("<//localhost/index.html>")
   TEST_FALSE((bool)uri.query());
   TEST_FALSE((bool)uri.fragment());
 
-  TEST_EQUAL(uri.host_str(), "localhost");
+  TEST_EQUAL(uri.host_str(), "host.domain.");
   TEST_EQUAL(uri.path_str(), "/index.html");
 }
 
